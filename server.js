@@ -17,12 +17,23 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
     console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
     mensaje = msg.toString("utf8");
-    console.log(mensaje);
-    if(con){
+    // Deco
+    let long,lat,fech,d,tiem ;
+    long = datos.slice(27, 31) + "." + data.slice(31, 36);
+    long = parseFloat(long);
+    lat = datos.slice(19, 22) + "." + data.slice(22, 27);
+    lat = parseFloat(lat);
+    fech = datos.slice(6, 19);
+    //d = datos[10];
+   // tiem = datos.slice(11, 16);
+    fech = new Date (parseFloat(fech))
+    let Fecha = `${fech.getDay()}/${fech.getMonth()}/${fech.getFullYear()}`;
+    let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
+   if(con){
         console.log("Connected!");
-        var sql = "INSERT INTO customers (mensaje) VALUES ?";
+        var sql = "INSERT INTO segunda (Fecha , Hora , Latitud , Longitud ) VALUES ?";
         var value=[
-            [mensaje]
+            [Fecha , Hora , lat , long ] 
         ];
         con.query(sql, [value], function(err, result) {
         if (err) throw err;
