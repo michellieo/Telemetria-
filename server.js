@@ -31,7 +31,7 @@ server.on('message', (msg, rinfo) => {
     let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
    if(con){
         console.log("Connected!");
-        var sql = "INSERT INTO segunda (Fecha , Hora , Latitud , Longitud ) VALUES ?";
+        var sql = "INSERT INTO Segunda (Fecha , Hora , Latitud , Longitud ) VALUES ?";
         var value=[
             [Fecha , Hora , lat , long ] 
         ];
