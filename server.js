@@ -29,8 +29,8 @@ server.on('message', (msg, rinfo) => {
     //d = datos[10];
    // tiem = datos.slice(11, 16);
     fech = new Date (parseFloat(fech))
-    let Fecha = `${fech.getDay()}/${fech.getMonth()}/${fech.getFullYear()}`;
-    let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
+    let Fecha = `${fech.getUTCDay()}/${fech.getUTCMonth()}/${fech.getUTCFullYear()}`;
+    let Hora = `${fech.getUTCHours()}:${fech.getUTCMinutes()}:${fech.getUTCSeconds()}`;
    if(con){
         console.log("Connected!");
         var sql = "INSERT INTO Segunda (Fecha , Hora , Latitud , Longitud ) VALUES ?";
