@@ -81,7 +81,7 @@ app.get('/', (req, res) => {
 
 app.get('/coord', (req, res) => {
     if(con){
-        var sql= "SELECT mensaje FROM costumers ORDER BY name DESC limit 1 ";
+        var sql= "SELECT mensaje FROM customers ORDER BY name DESC limit 1 ";
             con.query(sql, function(err, result) {
             if (err) throw err;
            res.json(`${result[0].mensaje}`);
