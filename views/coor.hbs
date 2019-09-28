@@ -39,12 +39,13 @@
       d=data[10];
       tiem=data.slice(11,16);
       //Decodificar fecha y hora
-      unixdate = 315964800;
-      unixt = unixdate+ (parseInt(fech)*604800)+ (d*86400) +(parseInt(tiem) - 18000);
-      dateObj = new Date(unixt *1000); 
-      fech3 = dateObj.toUTCString(); 
-      fech2=  fech3.slice(-30,-13);
-      tiem2 = fech3.slice(-13, -3);
+      //unixdate = 315964800;
+      //unixt = unixdate+ (parseInt(fech)*604800)+ (d*86400) +(parseInt(tiem) - 18000);
+      //dateObj = new Date(unixt *1000); 
+      //fech3 = dateObj.toUTCString(); 
+      //fech2=  fech3.slice(-30,-13);
+      //tiem2 = fech3.slice(-13, -3);
+      fech2 = new Date(fech);
       coord1.innerText=fech2;
       coord2.innerText=tiem2;
       coord3.innerText=lat;
