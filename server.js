@@ -90,7 +90,7 @@ app.get('/coord', (req, res) => {
     } else {
         console.log("error conection with db")
     }
-    res.json(`${mensaje}`);
+    //res.json(`${mensaje}`);
 });
 app.get('/plana', (req, res) => {
     res.render('coor', {});
