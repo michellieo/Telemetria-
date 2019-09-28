@@ -19,11 +19,11 @@ server.on('message', (msg, rinfo) => {
     mensaje = msg.toString("utf8");
     // Deco
     let long,lat,fech,d,tiem ;
-    long = datos.slice(27, 31) + "." + data.slice(31, 36);
+    long = mensaje.slice(27, 31) + "." + data.slice(31, 36);
     long = parseFloat(long);
-    lat = datos.slice(19, 22) + "." + data.slice(22, 27);
+    lat = mensaje.slice(19, 22) + "." + data.slice(22, 27);
     lat = parseFloat(lat);
-    fech = datos.slice(6, 19);
+    fech = mensaje.slice(6, 19);
     //d = datos[10];
    // tiem = datos.slice(11, 16);
     fech = new Date (parseFloat(fech))
