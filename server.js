@@ -29,6 +29,7 @@ server.on('message', (msg, rinfo) => {
     //d = datos[10];
    // tiem = datos.slice(11, 16);
     fech = new Date (parseFloat(fech))
+    console.log(fech);
     let Fecha = `${fech.getUTCDay()}/${fech.getUTCMonth()}/${fech.getUTCFullYear()}`;
     let Hora = `${fech.getUTCHours()}:${fech.getUTCMinutes()}:${fech.getUTCSeconds()}`;
    if(con){
