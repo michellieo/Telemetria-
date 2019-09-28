@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>mapa</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <div id="map-template"></div>
+
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+    <script>
+        let long,datos, lat, d, fech, tiem, fech2, tiem2, fech3, unixt, unixdate, mich, marcador;
+        const map = L.map('map-template').setView([10.99304, -74.82814], 13);
+        const tileurl = 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png';
+        const tileurl2 = 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png';
+        L.tileLayer(tileurl2).addTo(map);
+        marcador = L.marker([10, -10])
+        marcador.addTo(map);
+        function actualizar() {
+            fetch("/coord").then(res => {
+                return res.json()
+            }).then(data => {
+                datos = data;
+                long = datos.slice(24, 28) + "." + data.slice(28, 33);
+                long = parseFloat(long);
+                lat = datos.slice(16, 19) + "." + data.slice(19, 24);
+                lat = parseFloat(lat);
+                fech = datos.slice(6, 10);
+                d = datos[10];
+                tiem = datos.slice(11, 16);
+                //Decodificar fecha y hora
+                unixdate = 315964800;
+                unixt = unixdate + (parseInt(fech) * 604800) + (d * 86400) + (parseInt(tiem) - 18000);
+                dateObj = new Date(unixt * 1000);
+                fech3 = dateObj.toUTCString();
+                fech2 = fech3.slice(-30, -13);
+                tiem2 = fech3.slice(-13, -3);
+                let fecha = fech2;
+                let hora = tiem2;
+                let newLatLng = new L.LatLng(lat, long)
+                console.log(newLatLng);
+                marcador.setLatLng(newLatLng);
+            })
+        }
+        let actualizarLista = setInterval(actualizar, 1000);  
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <h1>Coordenadas planas</h1>
+  <h1 id="fecha">La fecha es: <font size="15px"> </font>
+  </h1>
+  <h1 id="hora">La hora es: <font size="15px"> </font>
+  </h1>
+  <h1 id="latitud">Latitud: <font size="15px"> </font>
+  </h1>
+  <h1 id="longitud">Longitud<font size="15px"></font>
+  </h1>
+  <h1 id="mich"><font size="15px"></font></h1>
+</body>
+
+<script>
+  function actualizar(){
+    let recData
+    fetch("/coord").then(res=>{
+      return res.json()
+      }).then(data=>{
+      var coord1 = document.getElementById("fecha");
+      var coord2 = document.getElementById("hora");
+      var coord3 = document.getElementById("latitud");
+      var coord4 = document.getElementById("longitud");
+      var long,lat,fech,tiem,fech2,tiem2,fech3,unixt,unixdate,mich;
+      long=data.slice(24,28)+"."+data.slice(28,33);
+      lat=data.slice(16,19)+"."+data.slice(19,24);
+      fech=data.slice(6,10);
+      d=data[10];
+      tiem=data.slice(11,16);
+      //Decodificar fecha y hora
+      unixdate = 315964800;
+      unixt = unixdate+ (parseInt(fech)*604800)+ (d*86400) +(parseInt(tiem) - 18000);
+      dateObj = new Date(unixt *1000); 
+      fech3 = dateObj.toUTCString(); 
+      fech2=  fech3.slice(-30,-13);
+      tiem2 = fech3.slice(-13, -3);
+      coord1.innerText=fech2;
+      coord2.innerText=tiem2;
+      coord3.innerText=lat;
+      coord4.innerText=long;
+    })
+  }   
+  let actualizarLista = setInterval(actualizar, 1000);     
+</script>
+
+</html>
