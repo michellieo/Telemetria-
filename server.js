@@ -19,9 +19,9 @@ server.on('message', (msg, rinfo) => {
     mensaje = msg.toString("utf8");
     // Deco
     let long,lat,fech,d,tiem ;
-    long = mensaje.slice(27, 31) + "." + data.slice(31, 36);
+    long = mensaje.slice(27, 31) + "." + mensaje.slice(31, 36);
     long = parseFloat(long);
-    lat = mensaje.slice(19, 22) + "." + data.slice(22, 27);
+    lat = mensaje.slice(19, 22) + "." + mensaje.slice(22, 27);
     lat = parseFloat(lat);
     fech = mensaje.slice(6, 19);
     //d = datos[10];
