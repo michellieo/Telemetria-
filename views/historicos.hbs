@@ -59,20 +59,44 @@
     const h1 = document.getElementById("hora1");
     const h2 = document.getElementById("hora2");
     const btn = document.getElementById("boton");
-
+    let road = [];
+    let polyline;
 
     btn.addEventListener("click", () => {
-        let data = {
-            fecha1: f1.value, fecha2: f2.value, hora1: h1.value, hora2: h1.value
-        }
-        console.log(data);
-        fetch("/history", {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
+        let c1 = new Date(f1.value)
+        c1.getMilliseconds()
+        let c2 = new Date(f2.value)
+        c2.getMilliseconds()
+        if (c2 > c1) {
+            let data = {
+                fecha1: f1.value, fecha2: f2.value, hora1: h1.value, hora2: h2.value
             }
-        })
+            //console.log(data);
+            fetch("/history", { //peticion http
+                method: 'POST', // tipo de peticion put get delete post , post manda informacion nueva , put actualiza algo existente 
+                body: JSON.stringify(data), // just in case 
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                return res.json() //quitar cabeceras 
+            }).then(data => {
+                if (polyline) {
+                    polyline.remove();
+                }
+                data.map((d, i) => { // for 
+                    road[i] = {
+                        lat: d.Latitud,
+                        lon: d.Longitud
+                    }
+                })
+                //console.log(road)
+                polyline = L.polyline(road).addTo(map);
+
+            })
+        } else {
+            alert("Fecha incorrecta")
+        }
     })
 </script>
 <style>

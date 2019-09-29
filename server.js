@@ -18,17 +18,17 @@ server.on("message", (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
   mensaje = msg.toString("utf8");
   // Deco
-  let long, lat, fech, d, tiem;
+  let long, lat, fech;
   long = mensaje.slice(27, 31) + mensaje.slice(31, 36);
   long = parseFloat(long);
   lat = mensaje.slice(19, 22) + mensaje.slice(22, 27);
   lat = parseFloat(lat);
-  console.log(lat);
+  //console.log(lat);
 
   fech = mensaje.slice(6, 19);
   //d = datos[10];
   // tiem = datos.slice(11, 16);
-  fech = new Date(parseFloat(fech) - 18000000);
+  fech = new Date(parseFloat(fech) - 18000000); //funcion de js para fechas
   // console.log(fech);
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDate()}`;
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
@@ -64,7 +64,7 @@ var hbs = require("express-hbs");
 const path = require("path");
 const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //Arregla la petición , la hace bonita
 app.engine(
   "hbs",
   hbs.express4({
@@ -85,10 +85,10 @@ app.get("/", (req, res) => {
 
 app.get("/coord", (req, res) => {
   if (con) {
-    var sql = "SELECT mensaje FROM customers ORDER BY name DESC limit 1 ";
+    var sql = "SELECT * FROM Segunda ORDER BY id DESC limit 1 ";
     con.query(sql, function(err, result) {
       if (err) throw err;
-      res.json(`${result[0].mensaje}`);
+      res.json(result[0]);
     });
   } else {
     console.log("error conection with db");
@@ -99,15 +99,20 @@ app.get("/coord", (req, res) => {
 //     res.render('coor', {});
 // });
 app.post("/history", (req, res) => {
-  console.log(req.body);
+  console.log(req.body); // no existe sin body parser , req.body es la data recibida
   if (con) {
     console.log("Connected!");
     var sql =
-      "INSERT INTO Segunda (Fecha , Hora , Latitud , Longitud ) VALUES ?";
-    var value = [[Fecha, Hora, lat, long]];
-    con.query(sql, [value], function(err, result) {
+      "SELECT * FROM Segunda where Fecha between ? and ? and Hora between ? and ? ";
+    var value = [
+      req.body.fecha1,
+      req.body.fecha2,
+      req.body.hora1,
+      req.body.hora2
+    ];
+    con.query(sql, value, function(err, result) {
       if (err) throw err;
-      console.log("1 record inserted");
+      res.json(result);
     });
   } else {
     console.log("Error conection with db");
