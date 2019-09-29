@@ -28,7 +28,7 @@ server.on("message", (msg, rinfo) => {
   fech = mensaje.slice(6, 19);
   //d = datos[10];
   // tiem = datos.slice(11, 16);
-  fech = new Date(parseFloat(fech));
+  fech = new Date(parseFloat(fech) - 18000000);
   // console.log(fech);
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDate()}`;
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
