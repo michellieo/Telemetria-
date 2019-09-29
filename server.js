@@ -30,7 +30,7 @@ server.on("message", (msg, rinfo) => {
   // tiem = datos.slice(11, 16);
   fech = new Date(parseFloat(fech));
   // console.log(fech);
-  console.log(fech.getDay());
+  console.log(fech.getUTCDay());
 
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDay()}`;
   console.log(Fecha);
