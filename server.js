@@ -95,12 +95,15 @@ app.get('/coord', (req, res) => {
     }
     //res.json(`${mensaje}`);
 });
-app.get('/plana', (req, res) => {
-    res.render('coor', {});
-});
+// app.get('/plana', (req, res) => {
+//     res.render('coor', {});
+// });
 
 app.get('/mapa', (req, res) => {
     res.render('mapa2', {});
+});
+app.get('/historicos', (req, res) => {
+    res.render('historicos', {});
 });
 
 app.listen(port, () => {
