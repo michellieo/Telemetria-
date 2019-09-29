@@ -30,10 +30,7 @@ server.on("message", (msg, rinfo) => {
   // tiem = datos.slice(11, 16);
   fech = new Date(parseFloat(fech));
   // console.log(fech);
-  console.log(fech.getDate());
-
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDate()}`;
-  console.log(Fecha);
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
   if (con) {
     console.log("Connected!");
