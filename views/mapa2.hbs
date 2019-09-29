@@ -22,13 +22,16 @@
         L.tileLayer(tileurl2).addTo(map);
         marcador = L.marker([10, -10])
         marcador.addTo(map);
-        var polyline = L.polyline([]).addTo(map);
+        var polyline;
         function actualizar() {
             fetch("/coord").then(res => {
                 return res.json()
             }).then(data => {
                 long = data.Longitud
                 lat = data.Latitud
+                if (!polyline) {
+                    polyline = L.polyline([{ lat: lat, lon: long }]).addTo(map);
+                }
                 fech = data.Fecha
                 tiem2 = data.Hora
                 let fecha = fech;
