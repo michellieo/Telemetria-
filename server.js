@@ -31,6 +31,7 @@ server.on("message", (msg, rinfo) => {
   fech = new Date(parseFloat(fech));
   // console.log(fech);
   let Fecha = `${fech.getFullYear()}-${fech.getMonth()}-${fech.getDay()}`;
+  console.log(Fecha);
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
   if (con) {
     console.log("Connected!");
