@@ -25,16 +25,20 @@ server.on("message", (msg, rinfo) => {
   lat = mensaje.slice(19, 22) + mensaje.slice(22, 27);
   lat = parseFloat(lat);
   if (long > 0) {
-    long = -1 * long;
-  } else {
-    long = long;
+    if (long < 10) {
+      long = -70 - long;
+    }
   }
-  //console.log(lat);
+  if (long > 70) {
+    long = -1 * long;
+  }
+
+  console.log(lat);
 
   fech = mensaje.slice(6, 19);
   //d = datos[10];
   // tiem = datos.slice(11, 16);
-  fech = new Date(parseFloat(fech) - 18000000); //
+  fech = new Date(parseFloat(fech) - 18000000); // Parses a string and returns a number
   // console.log(fech);
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDate()}`;
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
