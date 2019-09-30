@@ -17,7 +17,6 @@ server.on("error", err => {
 server.on("message", (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
   mensaje = msg.toString("utf8");
-  console.log(mensaje);
   // Deco
   let long, lat, fech;
   long = mensaje.slice(27, 31) + mensaje.slice(31, 36);
