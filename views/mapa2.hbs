@@ -43,9 +43,10 @@
                 marcador.setLatLng(newLatLng);
                 marcador.bindPopup(`${variable}`);
             })
-
+            setView([lat, long]);
         }
-        let actualizarLista = setInterval(actualizar, 1000);  
+        let actualizarLista = setInterval(actualizar, 1000);
+
     </script>
 </body>
 
