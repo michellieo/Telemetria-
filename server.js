@@ -50,6 +50,7 @@ server.on("message", (msg, rinfo) => {
     con.query(sql, [value], function(err, result) {
       if (err) throw err;
       console.log("1 record inserted");
+      con.end();
     });
   } else {
     console.log("Error conection with db");
@@ -74,7 +75,7 @@ var hbs = require("express-hbs");
 const path = require("path");
 const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); //Arregla la petición , la hace bonita
+app.use(bodyParser.json());
 app.engine(
   "hbs",
   hbs.express4({
@@ -99,6 +100,7 @@ app.get("/coord", (req, res) => {
     con.query(sql, function(err, result) {
       if (err) throw err;
       res.json(result[0]);
+      con.end();
     });
   } else {
     console.log("error conection with db");
@@ -109,7 +111,7 @@ app.get("/coord", (req, res) => {
 //     res.render('coor', {});
 // });
 app.post("/history", (req, res) => {
-  console.log(req.body); // no existe sin body parser , req.body es la data recibida
+  console.log(req.body); // Requiring data in historicos
   if (con) {
     console.log("Connected!");
     var sql =
@@ -123,6 +125,7 @@ app.post("/history", (req, res) => {
     con.query(sql, value, function(err, result) {
       if (err) throw err;
       res.json(result);
+      con.end();
     });
   } else {
     console.log("Error conection with db");
