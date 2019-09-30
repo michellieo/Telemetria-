@@ -17,18 +17,24 @@ server.on("error", err => {
 server.on("message", (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
   mensaje = msg.toString("utf8");
+
   // Deco
   let long, lat, fech;
   long = mensaje.slice(27, 31) + mensaje.slice(31, 36);
   long = parseFloat(long);
   lat = mensaje.slice(19, 22) + mensaje.slice(22, 27);
   lat = parseFloat(lat);
+  if (long > 0) {
+    long = -1 * long;
+  } else {
+    long = long;
+  }
   //console.log(lat);
 
   fech = mensaje.slice(6, 19);
   //d = datos[10];
   // tiem = datos.slice(11, 16);
-  fech = new Date(parseFloat(fech) - 18000000); //funcion de js para fechas
+  fech = new Date(parseFloat(fech) - 18000000); //
   // console.log(fech);
   let Fecha = `${fech.getFullYear()}-${fech.getMonth() + 1}-${fech.getDate()}`;
   let Hora = `${fech.getHours()}:${fech.getMinutes()}:${fech.getSeconds()}`;
